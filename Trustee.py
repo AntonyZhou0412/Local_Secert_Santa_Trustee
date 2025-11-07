@@ -30,7 +30,7 @@ from typing import Dict, List
 # ============ Default behavior ============
 ONE_SHOT_REVEAL_DEFAULT = True     # each person may view only once
 REVEAL_NEEDS_ENTER_DEFAULT = True  # press Enter to clear after viewing
-REVEAL_TIMEOUT_SEC_DEFAULT = None  # or set an int seconds for auto-clear
+REVEAL_TIMEOUT_SEC_DEFAULT = False  # or set an int seconds for auto-clear
 # ==========================================
 
 TMP_ASSIGN_PATH: str | None = None
@@ -107,11 +107,24 @@ def write_tmp_assign(assignments: Dict[str, str]) -> None:
 
 
 def wait_then_clear(needs_enter: bool, timeout_sec: int | None) -> None:
-    """Wait before clearing the screen, based on settings."""
+    """Wait before clearing the screen, based on settings.
+
+    If an auto-clear timeout is configured (timeout_sec is an int >= 0), this
+    now prints a brief English instruction so the viewer knows the message will
+    disappear after X seconds and to pass the device to the next person.
+    """
     if needs_enter:
-        input("\n(Press Enter to clear)")
+        input("\n(Press Enter to clear, and pass to next person)")
     elif isinstance(timeout_sec, int) and timeout_sec >= 0:
-        time.sleep(timeout_sec)
+        # Provide an explicit prompt for the automatic-clear case.
+        if timeout_sec == 0:
+            # No wait: inform user immediately before clearing.
+            print("\n(Clearing now. Please pass the device to the next person.)")
+            # no sleep required for 0
+        else:
+            # Auto-clear after N seconds: show message with X substituted.
+            print(f"\n(This message will be automatically cleared in {timeout_sec} seconds. Please pass the device to the next person afterward.)")
+            time.sleep(timeout_sec)
     clear_screen_and_scrollback()
 
 
