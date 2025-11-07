@@ -1,4 +1,4 @@
-# Local_Secert_Santa_Trustee
+# Local_Secret_Santa_Trustee
 Merry Christmas!!!!
 
 # Secret Santa Trustee
