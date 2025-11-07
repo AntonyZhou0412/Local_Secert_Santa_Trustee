@@ -25,15 +25,15 @@ import sys
 import tempfile
 import time
 import argparse
-from typing import Dict, List
+from typing import Dict, List, Optional, Set
 
 # ============ Default behavior ============
 ONE_SHOT_REVEAL_DEFAULT = True     # each person may view only once
 REVEAL_NEEDS_ENTER_DEFAULT = True  # press Enter to clear after viewing
-REVEAL_TIMEOUT_SEC_DEFAULT = False  # or set an int seconds for auto-clear
+REVEAL_TIMEOUT_SEC_DEFAULT = False  # set an integer number of seconds for auto-clear
 # ==========================================
 
-TMP_ASSIGN_PATH: str | None = None
+TMP_ASSIGN_PATH: Optional[str] = None
 
 
 def clear_screen_and_scrollback() -> None:
@@ -106,7 +106,7 @@ def write_tmp_assign(assignments: Dict[str, str]) -> None:
     TMP_ASSIGN_PATH = path
 
 
-def wait_then_clear(needs_enter: bool, timeout_sec: int | None) -> None:
+def wait_then_clear(needs_enter: bool, timeout_sec: Optional[int]) -> None:
     """Wait before clearing the screen, based on settings.
 
     If an auto-clear timeout is configured (timeout_sec is an int >= 0), this
