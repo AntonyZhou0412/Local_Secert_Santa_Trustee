@@ -30,7 +30,7 @@ from typing import Dict, List
 # ============ Default behavior ============
 ONE_SHOT_REVEAL_DEFAULT = True     # each person may view only once
 REVEAL_NEEDS_ENTER_DEFAULT = True  # press Enter to clear after viewing
-REVEAL_TIMEOUT_SEC_DEFAULT = False  # or set an int seconds for auto-clear
+REVEAL_TIMEOUT_SEC_DEFAULT = False  # set an integer number of seconds for auto-clear
 # ==========================================
 
 TMP_ASSIGN_PATH: str | None = None
