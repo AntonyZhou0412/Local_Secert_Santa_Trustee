@@ -5,7 +5,7 @@ A privacy-first Secret Santa helper for small groups, with an optional AES-encry
 Each participant privately looks up their recipient; no one else’s assignment is shown.
 
 - Python 3.8+
-- Cross-platform: Windows / macOS / Linux
+- Cross-platform: Windows
 - No network access required
 
 ---
