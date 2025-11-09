@@ -24,6 +24,7 @@ import json
 import os
 import random
 import secrets
+import string
 import signal
 import sys
 import tempfile
@@ -192,9 +193,10 @@ def gen_derangement(names: List[str]) -> Dict[str, str]:
             return dict(zip(givers, receivers))
 
 
-def generate_secure_numeric_password(length: int) -> str:
-    """Generate a secure random password consisting only of digits."""
-    return ''.join(secrets.choice('0123456789') for _ in range(length))
+def generate_secure_password(length: int) -> str:
+    """Generate a secure random password with digits, uppercase and lowercase letters."""
+    characters = string.ascii_letters + string.digits  # a-zA-Z0-9
+    return ''.join(secrets.choice(characters) for _ in range(length))
 
 
 def split_password_into_parts(password: str, num_parts: int) -> List[str]:
@@ -211,7 +213,7 @@ def create_encrypted_backup(assignments: Dict[str, str], num_participants: int) 
     """
     # Generate password: 4 * n digits
     password_length = 4 * num_participants
-    password = generate_secure_numeric_password(password_length)
+    password = generate_secure_password(password_length)
     
     # Get the directory where the script is located
     script_dir = os.path.dirname(os.path.abspath(__file__))
